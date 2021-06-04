@@ -1,5 +1,6 @@
 import 'package:evcapp/common/button_names_staring.dart';
 import 'package:evcapp/common/card_button.dart';
+import 'package:evcapp/service/stores_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import '../number_and_amount_screen.dart';
@@ -24,12 +25,14 @@ class _CardSelectorState extends State<CardSelector> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
+                        fullscreenDialog: true,
                           builder: (BuildContext context) =>
                               NumberAndAmountScreen(
                                 code: PAY_AMOUNT_CODE,
                               )));
                 },
-                child: CardButton(value: PAY_AMOUNT_TEXT)),
+                child: CardButton(
+                    code: PAY_AMOUNT_CODE, buttonText: PAY_AMOUNT_TEXT)),
             GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -40,12 +43,14 @@ class _CardSelectorState extends State<CardSelector> {
                                 code: MERCHANT_CODE,
                               )));
                 },
-                child: CardButton(value: MERCHANT_BUTTON_TEXT)),
+                child: CardButton(
+                    code: MERCHANT_CODE, buttonText: MERCHANT_BUTTON_TEXT)),
             GestureDetector(
                 onTap: () {
-                  _knowBalance('tel: $KNOW_BALANCE_CODE');
+                  _knowBalance('tel: *711%23');
                 },
-                child: CardButton(value: KNOW_BALANCE_TEXT)),
+                child: CardButton(
+                    code: KNOW_BALANCE_CODE, buttonText: KNOW_BALANCE_TEXT)),
             GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -56,7 +61,8 @@ class _CardSelectorState extends State<CardSelector> {
                                 code: ADD_MONEY_CODE,
                               )));
                 },
-                child: CardButton(value: ADD_MONEY_TEXT))
+                child: CardButton(
+                    code: ADD_MONEY_CODE, buttonText: ADD_MONEY_TEXT))
           ],
         ),
       ),

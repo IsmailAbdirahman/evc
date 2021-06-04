@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final String? hint;
-
-  TextFieldWidget({this.controller, this.hint});
+ final TextInputType? textInputType;
+  TextFieldWidget({this.controller, this.hint,this.textInputType});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class TextFieldWidget extends StatelessWidget {
       padding: const EdgeInsets.all(28.0),
       child: TextField(
         controller: controller,
-        keyboardType: TextInputType.number,
+        keyboardType: textInputType,
         decoration: inputDecoration(hintName: hint),
       ),
     );
