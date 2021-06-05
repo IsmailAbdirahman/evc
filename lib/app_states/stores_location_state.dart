@@ -23,9 +23,11 @@ class StoresLocationState extends ChangeNotifier {
   late double latitude;
   late double longitude;
   List<String> listOfClosestNumbers = [];
+  bool isCurrentLocationAvailable = false;
 
   checkLocationPermission() async {
     await _storesLocation.checkLocationPermission();
+    notifyListeners();
   }
 
   Future<void> getCurrentLocation() async {
@@ -39,14 +41,16 @@ class StoresLocationState extends ChangeNotifier {
   addCurrentLocationToDatabase({double? lati, double? longi, String? phoneNO}) {
     _storesLocation.addCurrentLocationToDatabase(
         lati: lati, longi: longi, phoneNO: phoneNO);
-    notifyListeners();
   }
 
   List<StoreModel>? getAllLocationsFromDatabase() {
+    notifyListeners();
     return _storesLocation.getAllLocationsFromDatabase();
   }
 
   Future<List<String>> getClosestLocationPhoneNumber() async {
+    print("isCurrentLocationAvailableisCurrentLocationAvailableisCurrentLocationAvailable $isCurrentLocationAvailable");
+
     await getCurrentLocation();
     getAllLocationsFromDatabase()!.forEach((position) {
       double diff = calculateDistanceBetweenLocations(
@@ -54,13 +58,14 @@ class StoresLocationState extends ChangeNotifier {
           savedLongi: position.longitude,
           currentLati: latitude,
           currentLongi: longitude);
-      if (diff <= 4.1781551770767794) {
+      if (diff <= 1.1781551770767794) {
         if (!listOfClosestNumbers.contains(position.mobileNumber)) {
+          isCurrentLocationAvailable = true;
+          print("isCurrentLocationAvailableisCurrentLocationAvailableisCurrentLocationAvailable $isCurrentLocationAvailable");
           listOfClosestNumbers.add(position.mobileNumber!);
         }
       }
     });
-    // print("listOfClosestNumbers::::: $listOfClosestNumbers");
 
     return listOfClosestNumbers;
   }

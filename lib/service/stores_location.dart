@@ -22,8 +22,10 @@ class StoresLocation {
   }
 
   addCurrentLocationToDatabase({double? lati, double? longi, String? phoneNO}) {
-    storeInfo.add(
-        StoreModel(mobileNumber: phoneNO, latitude: lati, longitude: longi)).whenComplete(() => print("DONE!!!!"));
+    storeInfo
+        .add(
+            StoreModel(mobileNumber: phoneNO, latitude: lati, longitude: longi))
+        .whenComplete(() => print("SAVED TO DATABASE"));
   }
 
   List<StoreModel>? getAllLocationsFromDatabase() {
